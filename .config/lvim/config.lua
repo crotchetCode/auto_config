@@ -117,7 +117,7 @@ lvim.builtin.lualine.sections.lualine_y = {
 -- cmp config
 lvim.builtin.cmp.experimental.ghost_text = true
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
-table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+-- table.insert(lvim.builtin.cmp.sources, 5, { name = "copilot" })
 
 -- generic LSP settings
 
@@ -308,6 +308,12 @@ lvim.plugins = {
     after = { "copilot.lua", "nvim-cmp" },
   },
   { "github/copilot.vim" },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
