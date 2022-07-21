@@ -9,6 +9,9 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+vim.g.neovide_transparency = 0.9
+vim.g.neovide_cursor_vfx_mode = "sonicboom"
+vim.o.guifont = "Hack Nerd Font Mono"
 vim.opt.relativenumber = true
 vim.opt.foldenable = true
 vim.opt.fdm = "indent"
@@ -35,6 +38,7 @@ lvim.colorscheme = my_colorschemes[math.random(0, #my_colorschemes - 1) + 1]
 lvim.leader = ","
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<leader>r"] = ":w !node<cr>"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -78,6 +82,7 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.filters.custom = { "\\.cache" }
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -117,7 +122,10 @@ lvim.builtin.lualine.sections.lualine_y = {
 -- cmp config
 lvim.builtin.cmp.experimental.ghost_text = true
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
--- table.insert(lvim.builtin.cmp.sources, 5, { name = "copilot" })
+table.insert(lvim.builtin.cmp.sources, 3, { name = "copilot" })
+
+-- bufferline config
+lvim.builtin.bufferline.options.separator_style = "slant"
 
 -- generic LSP settings
 
@@ -313,6 +321,24 @@ lvim.plugins = {
     config = function()
       require("nvim-ts-autotag").setup()
     end,
+  },
+  {
+    "rmagatti/goto-preview",
+    config = function()
+      require('goto-preview').setup {
+        width = 120; -- Width of the floating window
+        height = 25; -- Height of the floating window
+        default_mappings = true; -- Bind default mappings
+        debug = false; -- Print debug information
+        opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
+        -- You can use "default_mappings = true" setup option
+        -- Or explicitly set keybindings
+        -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+        -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
+        -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
+      }
+    end
   },
 }
 
